@@ -128,6 +128,9 @@ cmds:
       gperm_removed_successfully: "Removed permission %var0% from the group successfully."
       group_not_exist: "Group %var0% does NOT exist."
       level_not_exist: "World %var0% does NOT exist."
+  resetall:
+      desc: "Removes all your Data!"
+      usage: "Usage: /resetall"
   unsetuperm: 
     desc: "Removes a permission from the user."
     usage: "Usage: /unsetuperm <player> <permission> [world]"
