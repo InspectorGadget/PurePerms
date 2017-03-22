@@ -41,6 +41,8 @@ use pocketmine\plugin\PluginBase;
 
 use pocketmine\utils\UUID;
 
+use pocketmine\Server;
+
 class PurePerms extends PluginBase
 {
     /*
@@ -152,6 +154,28 @@ class PurePerms extends PluginBase
         $this->saveConfig();
         $this->reloadConfig();
     }
+    
+    public function resetAll() {
+        
+        if(is_dir($this->getDataFolder() . '/players')) {
+            
+            if(!$this->getConfigValue('data-provider') === 'yamlv1') {
+                
+                $this->getLogger()->warning('Make sure that the Data Provider is set to YAML in the config for this function to work!');
+                return true;
+                
+            }
+            
+            rmdir($this->getDataFolder() . '/players');
+            $this->getLogger()->warning('Done! Everything has been reset!');
+            $this->getLogger()->warning('Please reboot your server to take action!');
+            
+        }
+        else {
+            $this->getLogger()->warning('Make sure that the DIR is already there!');
+        }
+        
+    }
 
     private function registerCommands()
     {
@@ -178,7 +202,7 @@ class PurePerms extends PluginBase
         $commandMap->register("unsetgperm", new UnsetGPerm($this, "unsetgperm", $this->getMessage("cmds.unsetgperm.desc") . ' #64FF00'));
         $commandMap->register("unsetuperm", new UnsetUPerm($this, "unsetuperm", $this->getMessage("cmds.unsetuperm.desc") . ' #64FF00'));
         $commandMap->register("usrinfo", new UsrInfo($this, "usrinfo", $this->getMessage("cmds.usrinfo.desc") . ' #64FF00'));
-
+        $commandMap->register("resetall", new cmd\ResetAll($this, "resetall", $this->getMessage("cmds.resetall.desc") . ' #64FF00'));
     }
 
     /**
